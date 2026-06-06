@@ -54,3 +54,18 @@ stateDiagram-v2
 The sequence of interactions during task ingestion and worker dispatch:
 1. **Enqueue Flow:** Producer sends a job payload to the Broker HTTP API. The Broker persists the job in Storage and replies with a `202 Accepted` status.
 2. **Dispatch Flow:** Workers send poll requests to the Broker. The Broker leases a job, updates its lease timestamp, and returns it to the worker.
+
+### 3.1 Sequence Diagram
+```mermaid
+sequenceDiagram
+    autonumber
+    Producer->>Broker: POST /enqueue (payload)
+    Broker->>Storage: save_job (status=Queued)
+    Broker-->>Producer: 202 Accepted (job_id)
+    Worker->>Broker: Poll job
+    Broker->>Storage: lease_job (status=Processing)
+    Broker-->>Worker: Job payload
+    Worker->>Worker: execute_handler()
+    Worker->>Broker: ACK (job_id, result)
+    Broker->>Storage: update_job (status=Done)
+```
