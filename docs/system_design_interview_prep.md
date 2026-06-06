@@ -23,3 +23,9 @@ If a worker crashes, the leased job remains in `Processing` state. A background 
 ## 4. Starvation Prevention
 
 In priority queues, low-priority tasks can remain blocked indefinitely (starvation). Rustiq implements an **Aging Algorithm** that periodically increases the priority of waiting jobs.
+
+## 5. Scaling Strategies
+
+To scale beyond 10k jobs/sec:
+- **Horizontal Sharding:** Shard queues across multiple database instances by queue name hashes.
+- **Redis Backend:** Use a Redis cluster for fast, distributed in-memory pub/sub notifications.
