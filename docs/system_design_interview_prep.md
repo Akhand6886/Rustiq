@@ -19,3 +19,7 @@ Rustiq achieves at-least-once delivery through:
 ## 3. Visibility Timeout and Worker Crashes
 
 If a worker crashes, the leased job remains in `Processing` state. A background **Reaper** task periodically checks for jobs whose `lease_expires_at` is in the past. These jobs are returned to the `Queued` state.
+
+## 4. Starvation Prevention
+
+In priority queues, low-priority tasks can remain blocked indefinitely (starvation). Rustiq implements an **Aging Algorithm** that periodically increases the priority of waiting jobs.
