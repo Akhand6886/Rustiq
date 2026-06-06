@@ -24,7 +24,7 @@ graph TD
 ## Phase 1: Project Foundations & Core Types (Days 1–10)
 **Goal:** Build a solid understanding of system design concepts, initialize the project structure, define core data structures, and establish structured logging.
 
-### Day 1: System Design Research & Architecture Mapping
+### Day 1: System Design Research & Architecture Mapping [COMPLETED]
 *   **Focus:** Understand the distributed task queue model.
 *   **Action Items:** Read the Rustiq blueprint doc. Draw a high-level block diagram outlining the boundaries of:
     1.  **Producer Client:** HTTP or TCP clients submitting jobs.
