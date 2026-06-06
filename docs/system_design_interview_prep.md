@@ -15,3 +15,7 @@ This document lists common systems questions and design principles covered by Ru
 Rustiq achieves at-least-once delivery through:
 - **Lease model:** A job remains in the persistent storage even after dispatch.
 - **ACK protocol:** Workers must explicitly acknowledge completion. If they don't, the job is requeued.
+
+## 3. Visibility Timeout and Worker Crashes
+
+If a worker crashes, the leased job remains in `Processing` state. A background **Reaper** task periodically checks for jobs whose `lease_expires_at` is in the past. These jobs are returned to the `Queued` state.
