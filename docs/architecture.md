@@ -26,3 +26,13 @@ The system is composed of four decoupled layers communicating via defined protoc
 ### 1.4 Worker Pool
 - **Role:** Multi-threaded execution environment. Pulls jobs from the Broker, routes tasks to handlers, manages panics, and reports success or failures.
 - **Crates/Tools:** `tokio` (concurrency tasks), `async-trait`.
+
+## 2. Job Lifecycle & State Machine
+
+Every task flows through a strict state machine to prevent loss and guarantee at-least-once delivery:
+- **SUBMITTED:** The task has been received by the broker API.
+- **QUEUED:** The task is positioned in the priority queue, waiting to be leased.
+- **PROCESSING:** A worker has leased the job for execution.
+- **DONE:** Execution succeeded; results are saved.
+- **FAILED:** Execution failed, retry counter incremented.
+- **DEAD_LETTER:** Max retries exceeded; isolated for analysis.
