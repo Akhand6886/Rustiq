@@ -22,3 +22,7 @@ The system is composed of four decoupled layers communicating via defined protoc
 ### 1.3 Storage Layer
 - **Role:** Guarantees durability of jobs, records state changes, logs execution results, and manages dead-letter assignments.
 - **Crates/Tools:** `sled` (embedded key-value DB), `redis` (clustered memory storage).
+
+### 1.4 Worker Pool
+- **Role:** Multi-threaded execution environment. Pulls jobs from the Broker, routes tasks to handlers, manages panics, and reports success or failures.
+- **Crates/Tools:** `tokio` (concurrency tasks), `async-trait`.
