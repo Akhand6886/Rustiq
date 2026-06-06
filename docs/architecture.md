@@ -36,3 +36,15 @@ Every task flows through a strict state machine to prevent loss and guarantee at
 - **DONE:** Execution succeeded; results are saved.
 - **FAILED:** Execution failed, retry counter incremented.
 - **DEAD_LETTER:** Max retries exceeded; isolated for analysis.
+
+### 2.1 State Transition Flow
+```mermaid
+stateDiagram-v2
+    [*] --> SUBMITTED
+    SUBMITTED --> QUEUED
+    QUEUED --> PROCESSING : Worker lease
+    PROCESSING --> DONE : Success (ACK)
+    PROCESSING --> FAILED : Error (NACK / timeout)
+    FAILED --> QUEUED : retry_count < max
+    FAILED --> DEAD_LETTER : retry_count >= max
+```
