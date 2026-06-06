@@ -18,3 +18,7 @@ The system is composed of four decoupled layers communicating via defined protoc
 ### 1.2 Broker / Server
 - **Role:** Acts as the central coordinator. Receives jobs from Producers, manages queue state, schedules delayed tasks, and dispatches jobs to Workers.
 - **Crates/Tools:** `tokio` (async runtime), `axum` (web framework).
+
+### 1.3 Storage Layer
+- **Role:** Guarantees durability of jobs, records state changes, logs execution results, and manages dead-letter assignments.
+- **Crates/Tools:** `sled` (embedded key-value DB), `redis` (clustered memory storage).
