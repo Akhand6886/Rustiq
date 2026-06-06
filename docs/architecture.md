@@ -48,3 +48,9 @@ stateDiagram-v2
     FAILED --> QUEUED : retry_count < max
     FAILED --> DEAD_LETTER : retry_count >= max
 ```
+
+## 3. Core Data Flow & Protocols
+
+The sequence of interactions during task ingestion and worker dispatch:
+1. **Enqueue Flow:** Producer sends a job payload to the Broker HTTP API. The Broker persists the job in Storage and replies with a `202 Accepted` status.
+2. **Dispatch Flow:** Workers send poll requests to the Broker. The Broker leases a job, updates its lease timestamp, and returns it to the worker.
