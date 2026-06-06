@@ -14,3 +14,7 @@ The system is composed of four decoupled layers communicating via defined protoc
 - **Role:** Generates tasks, serializes payloads, assigns unique identifiers (UUIDs), and dispatches requests to the Broker.
 - **Communication Protocol:** HTTP REST API (using JSON) or high-performance TCP.
 - **Crates/Tools:** `serde` (serialization), `uuid` (unique IDs), `reqwest` (HTTP requests).
+
+### 1.2 Broker / Server
+- **Role:** Acts as the central coordinator. Receives jobs from Producers, manages queue state, schedules delayed tasks, and dispatches jobs to Workers.
+- **Crates/Tools:** `tokio` (async runtime), `axum` (web framework).
