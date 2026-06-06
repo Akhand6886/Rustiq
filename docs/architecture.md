@@ -9,3 +9,8 @@ The system is composed of four decoupled layers communicating via defined protoc
 - **Broker / Server**
 - **Storage Layer**
 - **Worker Pool**
+
+### 1.1 Producer Client
+- **Role:** Generates tasks, serializes payloads, assigns unique identifiers (UUIDs), and dispatches requests to the Broker.
+- **Communication Protocol:** HTTP REST API (using JSON) or high-performance TCP.
+- **Crates/Tools:** `serde` (serialization), `uuid` (unique IDs), `reqwest` (HTTP requests).
