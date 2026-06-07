@@ -16,3 +16,7 @@ Concurrency allows programs to execute out-of-order or in parallel, maximizing r
 
 ### 1.2 Cooperative Multitasking
 Rust's async tasks are cooperative. This means a running task must yield control back to the executor (via `.await`) to allow other tasks to run. If an async task runs a long computation without yielding, it will block the execution thread.
+
+## 2. Runtimes, Futures, and Executors
+
+Rust's standard library provides the interface for async coding (`Future` trait), but does not provide an execution engine. An **Executor** is required to run futures.
