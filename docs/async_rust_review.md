@@ -66,3 +66,8 @@ When you spawn a task on a multi-threaded executor (`tokio::spawn`), the future 
 
 ### 4.2 Compile-Time Data Race Prevention
 Data races occur when two threads access the same memory location concurrently, and at least one access is a write. Rust's borrow checker enforces ownership rules, preventing shared mutable state without synchronization.
+
+## 5. Thread-Safe Sharing Mechanisms
+
+To share resources across async task boundaries, use thread-safe pointer types:
+- `Arc<T>`: Atomic reference counting wrapper. Allows multiple threads to own shared access to an immutable resource.
