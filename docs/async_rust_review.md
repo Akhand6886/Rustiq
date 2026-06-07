@@ -29,3 +29,6 @@ pub trait Future {
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;
 }
 ```
+
+### 2.2 Wakers and Event Notification
+When a future is polled and cannot complete, it returns `Poll::Pending`. The executor registers a `Waker` in the context. When the underlying resource becomes available, the OS or driver signals the waker, which notifies the executor to schedule the task for another poll.
