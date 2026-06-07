@@ -92,3 +92,8 @@ Comparing execution models helps understand the benefits of Rust's async feature
 ## 7. Memory Safety Summaries
 
 By enforcing `Send` and `Sync` boundaries, Rust eliminates data races at compile time. Raw pointers are wrapped in safe abstractions, ensuring memory is freed correctly without garbage collection pauses.
+
+## 8. SDE System Design Questions
+- "How does Tokio's work-stealing scheduler work?"
+- "Why shouldn't you run blocking sync tasks on async threads?"
+- "What is the difference between `Send` and `Sync` traits in Rust?"
