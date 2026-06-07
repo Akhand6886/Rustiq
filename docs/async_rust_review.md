@@ -71,3 +71,8 @@ Data races occur when two threads access the same memory location concurrently, 
 
 To share resources across async task boundaries, use thread-safe pointer types:
 - `Arc<T>`: Atomic reference counting wrapper. Allows multiple threads to own shared access to an immutable resource.
+
+### 5.1 Synchronization Types
+- `Mutex<T>`: Mutual exclusion lock. Allows only one thread to access the resource at a time.
+- `RwLock<T>`: Reader-writer lock. Allows multiple readers or one writer. Best for read-heavy operations.
+*Note:* Always use async-aware synchronization (e.g. `tokio::sync::Mutex`) when holding locks across `.await` points to avoid blocking scheduler threads.
