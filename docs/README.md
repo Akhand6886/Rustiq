@@ -14,3 +14,4 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 - System Design Boundaries Defined
 - Job Lifecycles Documented
 - Sequence Flows Verified
+- [Async Rust Concurrency Review](async_rust_review.md)
