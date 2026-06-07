@@ -20,3 +20,12 @@ Rust's async tasks are cooperative. This means a running task must yield control
 ## 2. Runtimes, Futures, and Executors
 
 Rust's standard library provides the interface for async coding (`Future` trait), but does not provide an execution engine. An **Executor** is required to run futures.
+
+### 2.1 The Poll Model
+Unlike javascript promises, which start executing immediately when created, Rust futures are lazy. They do nothing until polled. The `Future` trait defines:
+```rust
+pub trait Future {
+    type Output;
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;
+}
+```
