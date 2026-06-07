@@ -84,3 +84,7 @@ Comparing execution models helps understand the benefits of Rust's async feature
 ### 6.1 Go (Goroutines) vs. Rust (Futures)
 - **Go:** Stack management is dynamic. Goroutines execute immediately on creation. The scheduler uses preemption, occasionally interrupting running routines to prevent starvation.
 - **Rust:** Futures are lazy and compiled down to state machines. Preemption is cooperative, requiring tasks to yield at `.await` points.
+
+### 6.2 Node.js (Single Thread) vs. Rust (Tokio)
+- **Node.js:** Single execution thread, non-blocking I/O. Best for simple I/O-heavy applications, but cannot leverage multiple cores without spawning child processes.
+- **Rust (Tokio):** Multi-threaded runtime. Can process CPU-bound tasks in parallel alongside high-performance network handling.
