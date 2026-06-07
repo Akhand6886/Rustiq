@@ -63,3 +63,6 @@ Rust guarantees thread safety at compile time using markers:
 
 ### 4.1 Thread Safety in Future Spawning
 When you spawn a task on a multi-threaded executor (`tokio::spawn`), the future must be `Send` because it may be moved and run on a different thread. Any variables captured by the future or held across `.await` points must also implement `Send`.
+
+### 4.2 Compile-Time Data Race Prevention
+Data races occur when two threads access the same memory location concurrently, and at least one access is a write. Rust's borrow checker enforces ownership rules, preventing shared mutable state without synchronization.
