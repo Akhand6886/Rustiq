@@ -76,3 +76,11 @@ To share resources across async task boundaries, use thread-safe pointer types:
 - `Mutex<T>`: Mutual exclusion lock. Allows only one thread to access the resource at a time.
 - `RwLock<T>`: Reader-writer lock. Allows multiple readers or one writer. Best for read-heavy operations.
 *Note:* Always use async-aware synchronization (e.g. `tokio::sync::Mutex`) when holding locks across `.await` points to avoid blocking scheduler threads.
+
+## 6. Language Feature Comparison
+
+Comparing execution models helps understand the benefits of Rust's async features.
+
+### 6.1 Go (Goroutines) vs. Rust (Futures)
+- **Go:** Stack management is dynamic. Goroutines execute immediately on creation. The scheduler uses preemption, occasionally interrupting running routines to prevent starvation.
+- **Rust:** Futures are lazy and compiled down to state machines. Preemption is cooperative, requiring tasks to yield at `.await` points.
