@@ -34,7 +34,7 @@ graph TD
 *   **System Design Context:** Contrast push-based systems (RabbitMQ/Webhook) with pull-based systems (SQS/Celery/BullMQ). Notice how pull-based systems naturally implement backpressure.
 *   **Verification:** Save a text-based architecture description or ASCII diagram into `docs/architecture.md`.
 
-### Day 2: Advanced Async Rust Review
+### Day 2: Advanced Async Rust Review [COMPLETED]
 *   **Focus:** Concurrency model of Rust.
 *   **Action Items:** Read Chapters 16 & 17 of *The Rust Programming Language* (concurrency and traits). Study Tokio's async runtime model (Green threads, work-stealing scheduler, blocking tasks vs async tasks).
 *   **System Design Context:** Interviewers love asking how Rust's multi-threaded work-stealing runtime compares to Node.js's single-threaded event loop or Go's goroutines.
