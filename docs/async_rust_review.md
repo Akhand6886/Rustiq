@@ -54,3 +54,9 @@ let result = tokio::task::spawn_blocking(move || {
     std::thread::sleep(std::time::Duration::from_secs(1));
 }).await?;
 ```
+
+## 4. Send and Sync Concurrency Boundaries
+
+Rust guarantees thread safety at compile time using markers:
+- `Send`: Indicates a type can be transferred across thread boundaries safely.
+- `Sync`: Indicates it is safe to share references to a type across thread boundaries.
