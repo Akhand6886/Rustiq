@@ -60,3 +60,6 @@ let result = tokio::task::spawn_blocking(move || {
 Rust guarantees thread safety at compile time using markers:
 - `Send`: Indicates a type can be transferred across thread boundaries safely.
 - `Sync`: Indicates it is safe to share references to a type across thread boundaries.
+
+### 4.1 Thread Safety in Future Spawning
+When you spawn a task on a multi-threaded executor (`tokio::spawn`), the future must be `Send` because it may be moved and run on a different thread. Any variables captured by the future or held across `.await` points must also implement `Send`.
