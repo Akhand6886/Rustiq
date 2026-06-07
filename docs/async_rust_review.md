@@ -42,3 +42,6 @@ Tokio is the industry-standard multi-threaded async runtime for Rust. It uses a 
 ### 3.1 Work-Stealing vs Single-Threaded
 - **Work-Stealing (multi_thread):** Best for parallel execution on multi-core systems, typical for high-throughput network servers.
 - **Current Thread (current_thread):** Runs all tasks on the current thread. Best for single-core microcontrollers or simple CLI tools, eliminating cross-thread synchronization overhead.
+
+### 3.2 Thread Blocking inside Async Code
+Blocking operations (like `std::thread::sleep` or sync file IO) inside async contexts block the local scheduler thread, preventing other queued tasks from executing.
