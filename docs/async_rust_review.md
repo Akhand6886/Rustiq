@@ -45,3 +45,12 @@ Tokio is the industry-standard multi-threaded async runtime for Rust. It uses a 
 
 ### 3.2 Thread Blocking inside Async Code
 Blocking operations (like `std::thread::sleep` or sync file IO) inside async contexts block the local scheduler thread, preventing other queued tasks from executing.
+
+### 3.3 Mitigation: `spawn_blocking`
+To run blocking operations, use `tokio::task::spawn_blocking`, which moves the blocking execution to a dedicated pool of OS threads outside the core scheduler.
+```rust
+let result = tokio::task::spawn_blocking(move || {
+    // Perform blocking synchronous operations here
+    std::thread::sleep(std::time::Duration::from_secs(1));
+}).await?;
+```
