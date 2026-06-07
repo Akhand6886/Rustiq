@@ -38,3 +38,7 @@ When a future is polled and cannot complete, it returns `Poll::Pending`. The exe
 Tokio is the industry-standard multi-threaded async runtime for Rust. It uses a **Work-Stealing Scheduler** to balance workloads across threads:
 - Each OS thread managed by Tokio has its own local run queue.
 - If a thread's local run queue becomes empty, it attempts to steal tasks from other threads' queues.
+
+### 3.1 Work-Stealing vs Single-Threaded
+- **Work-Stealing (multi_thread):** Best for parallel execution on multi-core systems, typical for high-throughput network servers.
+- **Current Thread (current_thread):** Runs all tasks on the current thread. Best for single-core microcontrollers or simple CLI tools, eliminating cross-thread synchronization overhead.
