@@ -32,3 +32,9 @@ pub trait Future {
 
 ### 2.2 Wakers and Event Notification
 When a future is polled and cannot complete, it returns `Poll::Pending`. The executor registers a `Waker` in the context. When the underlying resource becomes available, the OS or driver signals the waker, which notifies the executor to schedule the task for another poll.
+
+## 3. Tokio Runtime Internals
+
+Tokio is the industry-standard multi-threaded async runtime for Rust. It uses a **Work-Stealing Scheduler** to balance workloads across threads:
+- Each OS thread managed by Tokio has its own local run queue.
+- If a thread's local run queue becomes empty, it attempts to steal tasks from other threads' queues.
