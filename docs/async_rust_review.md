@@ -88,3 +88,7 @@ Comparing execution models helps understand the benefits of Rust's async feature
 ### 6.2 Node.js (Single Thread) vs. Rust (Tokio)
 - **Node.js:** Single execution thread, non-blocking I/O. Best for simple I/O-heavy applications, but cannot leverage multiple cores without spawning child processes.
 - **Rust (Tokio):** Multi-threaded runtime. Can process CPU-bound tasks in parallel alongside high-performance network handling.
+
+## 7. Memory Safety Summaries
+
+By enforcing `Send` and `Sync` boundaries, Rust eliminates data races at compile time. Raw pointers are wrapped in safe abstractions, ensuring memory is freed correctly without garbage collection pauses.
