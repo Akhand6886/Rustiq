@@ -10,8 +10,15 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 - *Designing Data-Intensive Applications* by Martin Kleppmann (Chapters 7, 8, 11)
 - *Programming Rust* (Concurrency and Async)
 
-## Day 1 Checklist Complete
+## Day 1 & 2 Checklists Complete
 - System Design Boundaries Defined
 - Job Lifecycles Documented
 - Sequence Flows Verified
 - [Async Rust Concurrency Review](async_rust_review.md)
+
+## Day 3 Checklist Complete
+- Binary Cargo project initialized in root
+- Core production dependencies pinned in Cargo.toml
+- Standard logging subscriber configured in main.rs
+- [Workspace Setup and Dependencies](workspace.md)
+
