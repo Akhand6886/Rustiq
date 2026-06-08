@@ -1,1 +1,9 @@
 /target
+.DS_Store
+*.rs.bk
+*.log
+
+# Sled database local files / directories
+/data/
+/db/
+/tmp/
