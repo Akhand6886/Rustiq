@@ -168,6 +168,33 @@ mod tests {
         assert_eq!(job.result, None);
         assert_eq!(job.error, None);
     }
+
+    #[test]
+    fn test_job_helper_methods() {
+        let mut job = Job::new("default", serde_json::json!({}));
+        assert!(job.is_queued());
+        assert!(!job.is_processing());
+
+        job.status = JobStatus::Processing;
+        assert!(job.is_processing());
+
+        job.status = JobStatus::Done;
+        assert!(job.is_done());
+
+        job.status = JobStatus::Failed;
+        assert!(job.is_failed());
+
+        job.status = JobStatus::DeadLetter;
+        assert!(job.is_dead_letter());
+
+        assert!(!job.is_lease_expired());
+        
+        job.lease_expires_at = Some(Utc::now() - chrono::Duration::seconds(10));
+        assert!(job.is_lease_expired());
+
+        job.lease_expires_at = Some(Utc::now() + chrono::Duration::seconds(10));
+        assert!(!job.is_lease_expired());
+    }
 }
 
 
