@@ -13,3 +13,27 @@ pub enum JobStatus {
     DeadLetter,
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_job_status_serialization() {
+        assert_eq!(serde_json::to_string(&JobStatus::Queued).unwrap(), "\"queued\"");
+        assert_eq!(serde_json::to_string(&JobStatus::Processing).unwrap(), "\"processing\"");
+        assert_eq!(serde_json::to_string(&JobStatus::Done).unwrap(), "\"done\"");
+        assert_eq!(serde_json::to_string(&JobStatus::Failed).unwrap(), "\"failed\"");
+        assert_eq!(serde_json::to_string(&JobStatus::DeadLetter).unwrap(), "\"dead_letter\"");
+    }
+
+    #[test]
+    fn test_job_status_deserialization() {
+        let status: JobStatus = serde_json::from_str("\"queued\"").unwrap();
+        assert_eq!(status, JobStatus::Queued);
+
+        let status: JobStatus = serde_json::from_str("\"dead_letter\"").unwrap();
+        assert_eq!(status, JobStatus::DeadLetter);
+    }
+}
+
+
