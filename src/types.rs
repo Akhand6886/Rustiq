@@ -13,6 +13,7 @@ pub enum JobStatus {
     DeadLetter,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Job {
     pub id: Uuid,
     pub queue: String,
