@@ -60,7 +60,7 @@ graph TD
 *   **System Design Context:** Using modular, modern crates helps keep the codebase stable and reflects professional dependency management.
 *   **Verification:** Run `cargo check` and ensure it compiles successfully with zero warnings.
 
-### Day 4: Core Domain Types (`types.rs`)
+### Day 4: Core Domain Types (`types.rs`) [COMPLETED]
 *   **Focus:** Structuring the core domain model.
 *   **Action Items:** Create `src/types.rs`. Define `JobStatus` enum (`Queued`, `Processing`, `Done`, `Failed`, `DeadLetter`). Define the main `Job` struct:
     ```rust
