@@ -51,6 +51,29 @@ mod tests {
         let status: JobStatus = serde_json::from_str("\"dead_letter\"").unwrap();
         assert_eq!(status, JobStatus::DeadLetter);
     }
+
+    #[test]
+    fn test_job_serialization() {
+        let job = Job {
+            id: Uuid::nil(),
+            queue: "default".to_string(),
+            payload: serde_json::json!({"data": "hello"}),
+            status: JobStatus::Queued,
+            priority: 1,
+            retry_count: 0,
+            max_retries: 3,
+            created_at: Utc::now(),
+            scheduled_at: None,
+            lease_expires_at: None,
+            visibility_timeout_secs: 30,
+            result: None,
+            error: None,
+        };
+
+        let serialized = serde_json::to_string(&job).unwrap();
+        assert!(serialized.contains("\"queue\":\"default\""));
+        assert!(serialized.contains("\"status\":\"queued\""));
+    }
 }
 
 
