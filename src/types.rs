@@ -19,6 +19,8 @@ pub struct Job {
     pub payload: Value,
     pub status: JobStatus,
     pub priority: u8,
+    pub retry_count: u32,
+    pub max_retries: u32,
 }
 
 #[cfg(test)]
