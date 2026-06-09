@@ -30,6 +30,26 @@ pub struct Job {
     pub error: Option<String>,
 }
 
+impl Job {
+    pub fn new(queue: impl Into<String>, payload: Value) -> Self {
+        Self {
+            id: Uuid::new_v4(),
+            queue: queue.into(),
+            payload,
+            status: JobStatus::Queued,
+            priority: 0,
+            retry_count: 0,
+            max_retries: 3,
+            created_at: Utc::now(),
+            scheduled_at: None,
+            lease_expires_at: None,
+            visibility_timeout_secs: 30,
+            result: None,
+            error: None,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
