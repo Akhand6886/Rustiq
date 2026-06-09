@@ -74,6 +74,34 @@ mod tests {
         assert!(serialized.contains("\"queue\":\"default\""));
         assert!(serialized.contains("\"status\":\"queued\""));
     }
+
+    #[test]
+    fn test_job_deserialization() {
+        let json_data = r#"{
+            "id": "00000000-0000-0000-0000-000000000000",
+            "queue": "default",
+            "payload": {"data": "hello"},
+            "status": "queued",
+            "priority": 1,
+            "retry_count": 0,
+            "max_retries": 3,
+            "created_at": "2026-06-09T07:28:00Z",
+            "scheduled_at": null,
+            "lease_expires_at": null,
+            "visibility_timeout_secs": 30,
+            "result": null,
+            "error": null
+        }"#;
+
+        let job: Job = serde_json::from_str(json_data).unwrap();
+        assert_eq!(job.id, Uuid::nil());
+        assert_eq!(job.queue, "default");
+        assert_eq!(job.status, JobStatus::Queued);
+        assert_eq!(job.scheduled_at, None);
+        assert_eq!(job.lease_expires_at, None);
+        assert_eq!(job.result, None);
+        assert_eq!(job.error, None);
+    }
 }
 
 
