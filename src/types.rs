@@ -13,6 +13,14 @@ pub enum JobStatus {
     DeadLetter,
 }
 
+pub struct Job {
+    pub id: Uuid,
+    pub queue: String,
+    pub payload: Value,
+    pub status: JobStatus,
+    pub priority: u8,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
