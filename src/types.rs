@@ -21,6 +21,10 @@ pub struct Job {
     pub priority: u8,
     pub retry_count: u32,
     pub max_retries: u32,
+    pub created_at: DateTime<Utc>,
+    pub scheduled_at: Option<DateTime<Utc>>,
+    pub lease_expires_at: Option<DateTime<Utc>>,
+    pub visibility_timeout_secs: u64,
 }
 
 #[cfg(test)]
