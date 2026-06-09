@@ -122,6 +122,24 @@ mod tests {
         assert_eq!(job.result, None);
         assert_eq!(job.error, None);
     }
+
+    #[test]
+    fn test_job_new_defaults() {
+        let payload = serde_json::json!({"task": "test"});
+        let job = Job::new("emails", payload.clone());
+
+        assert_eq!(job.queue, "emails");
+        assert_eq!(job.payload, payload);
+        assert_eq!(job.status, JobStatus::Queued);
+        assert_eq!(job.priority, 0);
+        assert_eq!(job.retry_count, 0);
+        assert_eq!(job.max_retries, 3);
+        assert_eq!(job.visibility_timeout_secs, 30);
+        assert_eq!(job.scheduled_at, None);
+        assert_eq!(job.lease_expires_at, None);
+        assert_eq!(job.result, None);
+        assert_eq!(job.error, None);
+    }
 }
 
 
