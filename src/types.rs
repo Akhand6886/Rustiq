@@ -48,6 +48,34 @@ impl Job {
             error: None,
         }
     }
+
+    pub fn is_queued(&self) -> bool {
+        self.status == JobStatus::Queued
+    }
+
+    pub fn is_processing(&self) -> bool {
+        self.status == JobStatus::Processing
+    }
+
+    pub fn is_done(&self) -> bool {
+        self.status == JobStatus::Done
+    }
+
+    pub fn is_failed(&self) -> bool {
+        self.status == JobStatus::Failed
+    }
+
+    pub fn is_dead_letter(&self) -> bool {
+        self.status == JobStatus::DeadLetter
+    }
+
+    pub fn is_lease_expired(&self) -> bool {
+        if let Some(expires_at) = self.lease_expires_at {
+            expires_at < Utc::now()
+        } else {
+            false
+        }
+    }
 }
 
 #[cfg(test)]
