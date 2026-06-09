@@ -25,6 +25,8 @@ pub struct Job {
     pub scheduled_at: Option<DateTime<Utc>>,
     pub lease_expires_at: Option<DateTime<Utc>>,
     pub visibility_timeout_secs: u64,
+    pub result: Option<Value>,
+    pub error: Option<String>,
 }
 
 #[cfg(test)]
