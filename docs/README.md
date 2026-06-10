@@ -29,4 +29,12 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 - Created `Job::new` helper constructors and status checkers
 - Verified serialization/deserialization boundaries via unit tests
 
+## Day 5 Checklist Complete
+- Defined `QueueConfig` struct to manage customizable, queue-specific metrics
+- Implemented `QueueConfigBuilder` supporting fluid configuration paths
+- Created helper methods `apply_visibility_timeout`, `has_exceeded_retries`, and `from_json`
+- Integrated defaults and builders backed by a comprehensive unit test suite in [types.rs](file:///Users/alpha/Desktop/Project%20report/Rustiq/src/types.rs)
+- Documented configuration schema additions in [workspace.md](workspace.md)
+
+
 
