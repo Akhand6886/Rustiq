@@ -327,6 +327,27 @@ mod tests {
         assert!(config.has_exceeded_retries(&job));
         job.retry_count = 4;
         assert!(config.has_exceeded_retries(&job));
+        job.retry_count = 4;
+        assert!(config.has_exceeded_retries(&job));
+    }
+
+    #[test]
+    fn test_queue_config_from_json() {
+        let json_data = r#"{
+            "visibility_timeout_secs": 45,
+            "max_retries": 4,
+            "max_concurrency": 15,
+            "dead_letter_queue": "my_dlq"
+        }"#;
+
+        let config = QueueConfig::from_json(json_data).unwrap();
+        assert_eq!(config.visibility_timeout_secs, 45);
+        assert_eq!(config.max_retries, 4);
+        assert_eq!(config.max_concurrency, Some(15));
+        assert_eq!(config.dead_letter_queue, Some("my_dlq".to_string()));
+
+        let invalid_json = r#"{ "visibility_timeout_secs": "invalid" }"#;
+        assert!(QueueConfig::from_json(invalid_json).is_err());
     }
 }
 
