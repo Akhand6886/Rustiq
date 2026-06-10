@@ -80,6 +80,7 @@ impl Job {
 
 pub struct QueueConfig {
     pub visibility_timeout_secs: u64,
+    pub max_retries: u32,
 }
 
 #[cfg(test)]
