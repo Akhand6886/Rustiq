@@ -86,6 +86,17 @@ pub struct QueueConfig {
     pub dead_letter_queue: Option<String>,
 }
 
+impl Default for QueueConfig {
+    fn default() -> Self {
+        Self {
+            visibility_timeout_secs: 30,
+            max_retries: 3,
+            max_concurrency: None,
+            dead_letter_queue: None,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
