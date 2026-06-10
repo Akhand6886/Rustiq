@@ -121,6 +121,10 @@ impl QueueConfig {
     pub fn has_exceeded_retries(&self, job: &Job) -> bool {
         job.retry_count >= self.max_retries
     }
+
+    pub fn from_json(json_str: &str) -> Result<Self, serde_json::Error> {
+        serde_json::from_str(json_str)
+    }
 }
 
 impl QueueConfigBuilder {
