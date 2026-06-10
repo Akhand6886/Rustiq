@@ -214,6 +214,15 @@ mod tests {
         job.lease_expires_at = Some(Utc::now() + chrono::Duration::seconds(10));
         assert!(!job.is_lease_expired());
     }
+
+    #[test]
+    fn test_queue_config_default() {
+        let config = QueueConfig::default();
+        assert_eq!(config.visibility_timeout_secs, 30);
+        assert_eq!(config.max_retries, 3);
+        assert_eq!(config.max_concurrency, None);
+        assert_eq!(config.dead_letter_queue, None);
+    }
 }
 
 
