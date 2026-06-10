@@ -78,7 +78,9 @@ impl Job {
     }
 }
 
-pub struct QueueConfig {}
+pub struct QueueConfig {
+    pub visibility_timeout_secs: u64,
+}
 
 #[cfg(test)]
 mod tests {
