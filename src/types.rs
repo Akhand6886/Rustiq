@@ -130,6 +130,11 @@ impl QueueConfigBuilder {
         self.max_concurrency = concurrency;
         self
     }
+
+    pub fn dead_letter_queue(mut self, dlq: Option<String>) -> Self {
+        self.dead_letter_queue = dlq;
+        self
+    }
 }
 
 
