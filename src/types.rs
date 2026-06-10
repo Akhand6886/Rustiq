@@ -113,6 +113,10 @@ impl QueueConfig {
             dead_letter_queue: None,
         }
     }
+
+    pub fn apply_visibility_timeout(&self, job: &mut Job) {
+        job.visibility_timeout_secs = self.visibility_timeout_secs;
+    }
 }
 
 impl QueueConfigBuilder {
