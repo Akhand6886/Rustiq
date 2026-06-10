@@ -120,6 +120,11 @@ impl QueueConfigBuilder {
         self.visibility_timeout_secs = secs;
         self
     }
+
+    pub fn max_retries(mut self, retries: u32) -> Self {
+        self.max_retries = retries;
+        self
+    }
 }
 
 
