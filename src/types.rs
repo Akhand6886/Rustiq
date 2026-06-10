@@ -308,6 +308,22 @@ mod tests {
         config.apply_visibility_timeout(&mut job);
         assert_eq!(job.visibility_timeout_secs, 90);
     }
+
+    #[test]
+    fn test_queue_config_retry_evaluation() {
+        let mut job = Job::new("default", serde_json::json!({}));
+        let config = QueueConfig::builder()
+            .max_retries(3)
+            .build();
+
+        assert!(!config.has_exceeded_retries(&job));
+        job.retry_count = 2;
+        assert!(!config.has_exceeded_retries(&job));
+        job.retry_count = 3;
+        assert!(config.has_exceeded_retries(&job));
+        job.retry_count = 4;
+        assert!(config.has_exceeded_retries(&job));
+    }
 }
 
 
