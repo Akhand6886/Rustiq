@@ -13,7 +13,7 @@ Rustiq/
 │   └── workspace.md         # Workspace documentation [This file]
 └── src/
     ├── main.rs              # Application entrypoint & tracing setup
-    ├── types.rs             # Core task queue domain types (Day 4)
+    ├── types.rs             # Core task queue domain types (Days 4 & 5)
     ├── errors.rs            # Custom error types (Day 6)
     ├── storage/
     │   └── mod.rs           # DB interface trait and mock storage (Day 7-8)
@@ -47,3 +47,11 @@ To achieve minimal latency and high throughput (target > 10,000 requests/sec):
 - **Optimization level** is set to `3` for release builds.
 - **Link-Time Optimization (LTO)** is enabled (`lto = true`) to allow cross-crate optimizations.
 - **Codegen units** are set to `1` to maximize optimization range across translation units.
+
+## 🔧 Queue Configurations (Day 5 additions)
+
+The core domain model types in `src/types.rs` now include queue-specific parameters:
+- **`QueueConfig`**: Struct holding configuration metrics such as `visibility_timeout_secs`, `max_retries`, `max_concurrency`, and `dead_letter_queue` name.
+- **`QueueConfigBuilder`**: Implement builder patterns to construct queue configurations cleanly.
+- **Lease & Retry Helpers**: Methods like `apply_visibility_timeout` and `has_exceeded_retries` allow applying queue settings dynamically to individual jobs.
+
