@@ -115,6 +115,14 @@ impl QueueConfig {
     }
 }
 
+impl QueueConfigBuilder {
+    pub fn visibility_timeout_secs(mut self, secs: u64) -> Self {
+        self.visibility_timeout_secs = secs;
+        self
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
