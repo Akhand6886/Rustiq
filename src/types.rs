@@ -125,6 +125,11 @@ impl QueueConfigBuilder {
         self.max_retries = retries;
         self
     }
+
+    pub fn max_concurrency(mut self, concurrency: Option<usize>) -> Self {
+        self.max_concurrency = concurrency;
+        self
+    }
 }
 
 
