@@ -117,6 +117,10 @@ impl QueueConfig {
     pub fn apply_visibility_timeout(&self, job: &mut Job) {
         job.visibility_timeout_secs = self.visibility_timeout_secs;
     }
+
+    pub fn has_exceeded_retries(&self, job: &Job) -> bool {
+        job.retry_count >= self.max_retries
+    }
 }
 
 impl QueueConfigBuilder {
