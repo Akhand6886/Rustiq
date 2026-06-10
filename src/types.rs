@@ -292,6 +292,18 @@ mod tests {
         assert_eq!(config.max_concurrency, Some(10));
         assert_eq!(config.dead_letter_queue, Some("dlq_queue".to_string()));
     }
+
+    #[test]
+    fn test_job_lease_overrides() {
+        let mut job = Job::new("default", serde_json::json!({}));
+        assert_eq!(job.visibility_timeout_secs, 30);
+
+        let config = QueueConfig::builder()
+            .visibility_timeout_secs(90)
+            .build();
+        config.apply_visibility_timeout(&mut job);
+        assert_eq!(job.visibility_timeout_secs, 90);
+    }
 }
 
 
