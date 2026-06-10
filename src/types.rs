@@ -135,6 +135,15 @@ impl QueueConfigBuilder {
         self.dead_letter_queue = dlq;
         self
     }
+
+    pub fn build(self) -> QueueConfig {
+        QueueConfig {
+            visibility_timeout_secs: self.visibility_timeout_secs,
+            max_retries: self.max_retries,
+            max_concurrency: self.max_concurrency,
+            dead_letter_queue: self.dead_letter_queue,
+        }
+    }
 }
 
 
