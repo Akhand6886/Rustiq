@@ -1,7 +1,7 @@
-use serde::{Deserialize, Serialize};
-use uuid::Uuid;
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use uuid::Uuid;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -158,18 +158,29 @@ impl QueueConfigBuilder {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_job_status_serialization() {
-        assert_eq!(serde_json::to_string(&JobStatus::Queued).unwrap(), "\"queued\"");
-        assert_eq!(serde_json::to_string(&JobStatus::Processing).unwrap(), "\"processing\"");
+        assert_eq!(
+            serde_json::to_string(&JobStatus::Queued).unwrap(),
+            "\"queued\""
+        );
+        assert_eq!(
+            serde_json::to_string(&JobStatus::Processing).unwrap(),
+            "\"processing\""
+        );
         assert_eq!(serde_json::to_string(&JobStatus::Done).unwrap(), "\"done\"");
-        assert_eq!(serde_json::to_string(&JobStatus::Failed).unwrap(), "\"failed\"");
-        assert_eq!(serde_json::to_string(&JobStatus::DeadLetter).unwrap(), "\"dead_letter\"");
+        assert_eq!(
+            serde_json::to_string(&JobStatus::Failed).unwrap(),
+            "\"failed\""
+        );
+        assert_eq!(
+            serde_json::to_string(&JobStatus::DeadLetter).unwrap(),
+            "\"dead_letter\""
+        );
     }
 
     #[test]
@@ -269,7 +280,7 @@ mod tests {
         assert!(job.is_dead_letter());
 
         assert!(!job.is_lease_expired());
-        
+
         job.lease_expires_at = Some(Utc::now() - chrono::Duration::seconds(10));
         assert!(job.is_lease_expired());
 
@@ -306,9 +317,7 @@ mod tests {
         let mut job = Job::new("default", serde_json::json!({}));
         assert_eq!(job.visibility_timeout_secs, 30);
 
-        let config = QueueConfig::builder()
-            .visibility_timeout_secs(90)
-            .build();
+        let config = QueueConfig::builder().visibility_timeout_secs(90).build();
         config.apply_visibility_timeout(&mut job);
         assert_eq!(job.visibility_timeout_secs, 90);
     }
@@ -316,9 +325,7 @@ mod tests {
     #[test]
     fn test_queue_config_retry_evaluation() {
         let mut job = Job::new("default", serde_json::json!({}));
-        let config = QueueConfig::builder()
-            .max_retries(3)
-            .build();
+        let config = QueueConfig::builder().max_retries(3).build();
 
         assert!(!config.has_exceeded_retries(&job));
         job.retry_count = 2;
@@ -350,5 +357,3 @@ mod tests {
         assert!(QueueConfig::from_json(invalid_json).is_err());
     }
 }
-
-

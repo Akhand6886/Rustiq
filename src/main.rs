@@ -1,10 +1,10 @@
-pub mod types;
+pub mod api;
 pub mod errors;
 pub mod storage;
-pub mod api;
+pub mod types;
 pub mod worker;
 
-use tracing_subscriber::{fmt, prelude::*, EnvFilter};
+use tracing_subscriber::{EnvFilter, fmt, prelude::*};
 
 fn main() {
     tracing_subscriber::registry()
@@ -14,4 +14,3 @@ fn main() {
 
     tracing::info!("Rustiq: Distributed Task Queue initialized.");
 }
-
