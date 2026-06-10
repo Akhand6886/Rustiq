@@ -97,6 +97,24 @@ impl Default for QueueConfig {
     }
 }
 
+pub struct QueueConfigBuilder {
+    visibility_timeout_secs: u64,
+    max_retries: u32,
+    max_concurrency: Option<usize>,
+    dead_letter_queue: Option<String>,
+}
+
+impl QueueConfig {
+    pub fn builder() -> QueueConfigBuilder {
+        QueueConfigBuilder {
+            visibility_timeout_secs: 30,
+            max_retries: 3,
+            max_concurrency: None,
+            dead_letter_queue: None,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
