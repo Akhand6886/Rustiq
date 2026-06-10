@@ -78,6 +78,8 @@ impl Job {
     }
 }
 
+pub struct QueueConfig {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
