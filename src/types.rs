@@ -273,6 +273,21 @@ mod tests {
         assert_eq!(config.max_concurrency, None);
         assert_eq!(config.dead_letter_queue, None);
     }
+
+    #[test]
+    fn test_queue_config_builder() {
+        let config = QueueConfig::builder()
+            .visibility_timeout_secs(60)
+            .max_retries(5)
+            .max_concurrency(Some(10))
+            .dead_letter_queue(Some("dlq_queue".to_string()))
+            .build();
+
+        assert_eq!(config.visibility_timeout_secs, 60);
+        assert_eq!(config.max_retries, 5);
+        assert_eq!(config.max_concurrency, Some(10));
+        assert_eq!(config.dead_letter_queue, Some("dlq_queue".to_string()));
+    }
 }
 
 
