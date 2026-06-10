@@ -83,7 +83,7 @@ graph TD
 *   **System Design Context:** The structure of a `Job` represents the schema contracts that flow between distributed nodes. Keep it clean and serialized.
 *   **Verification:** Write unit tests inside `types.rs` that verify serialization/deserialization to and from JSON.
 
-### Day 5: Queue Configurations
+### Day 5: Queue Configurations [COMPLETED]
 *   **Focus:** Queue customization properties.
 *   **Action Items:** Implement a `QueueConfig` struct in `src/types.rs`. It should define custom settings for individual queues, such as default visibility timeouts and maximum retries.
 *   **System Design Context:** Multi-tenant systems require queues to configure separate parameters depending on execution constraints (e.g. fast vs slow tasks).
