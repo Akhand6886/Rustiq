@@ -1,1 +1,1 @@
-// Error handling architecture placeholder
+use thiserror::Error;
