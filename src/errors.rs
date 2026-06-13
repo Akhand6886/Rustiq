@@ -30,6 +30,12 @@ impl From<serde_json::Error> for RustiqError {
     }
 }
 
+impl From<uuid::Error> for RustiqError {
+    fn from(err: uuid::Error) -> Self {
+        Self::InvalidPayload(format!("Invalid UUID: {}", err))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
