@@ -83,4 +83,16 @@ mod tests {
             _ => panic!("Expected InvalidPayload"),
         }
     }
+
+    #[test]
+    fn test_error_recoverability() {
+        let storage_err = RustiqError::StorageError("connection timeout".to_string());
+        assert!(storage_err.is_recoverable());
+
+        let queue_err = RustiqError::QueueNotFound("test-queue".to_string());
+        assert!(!queue_err.is_recoverable());
+
+        let serial_err = RustiqError::SerializationError("malformed".to_string());
+        assert!(!serial_err.is_recoverable());
+    }
 }
