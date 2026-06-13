@@ -36,6 +36,16 @@ impl From<uuid::Error> for RustiqError {
     }
 }
 
+impl RustiqError {
+    /// Returns true if the error is transient and processing should be retried.
+    pub fn is_recoverable(&self) -> bool {
+        match self {
+            Self::StorageError(_) => true,
+            _ => false,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
