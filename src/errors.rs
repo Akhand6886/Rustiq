@@ -6,4 +6,6 @@ pub enum RustiqError {
     StorageError(String),
     #[error("Queue not found: {0}")]
     QueueNotFound(String),
+    #[error("Serialization error: {0}")]
+    SerializationError(String),
 }
