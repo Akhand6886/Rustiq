@@ -8,4 +8,6 @@ pub enum RustiqError {
     QueueNotFound(String),
     #[error("Serialization error: {0}")]
     SerializationError(String),
+    #[error("Invalid payload: {0}")]
+    InvalidPayload(String),
 }
