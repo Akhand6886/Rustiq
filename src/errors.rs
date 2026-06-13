@@ -23,3 +23,9 @@ pub enum RustiqError {
     #[error("Job not found: {0}")]
     JobNotFound(uuid::Uuid),
 }
+
+impl From<serde_json::Error> for RustiqError {
+    fn from(err: serde_json::Error) -> Self {
+        Self::SerializationError(err.to_string())
+    }
+}
