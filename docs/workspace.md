@@ -55,3 +55,18 @@ The core domain model types in `src/types.rs` now include queue-specific paramet
 - **`QueueConfigBuilder`**: Implement builder patterns to construct queue configurations cleanly.
 - **Lease & Retry Helpers**: Methods like `apply_visibility_timeout` and `has_exceeded_retries` allow applying queue settings dynamically to individual jobs.
 
+## ⚠️ Error Handling Architecture (Day 6 additions)
+
+The central error handling system in `src/errors.rs` is defined by:
+- **`RustiqError`**: Enum deriving `thiserror::Error` for descriptive error handling:
+  - `StorageError`: For database, I/O, or connection failures (classified as **recoverable**).
+  - `QueueNotFound`: For missing queue names (classified as **terminal**).
+  - `SerializationError`: For JSON structure or parsing mistakes (classified as **terminal**).
+  - `InvalidPayload`: For payload content validation failures (classified as **terminal**).
+  - `JobNotFound`: For missing job UUIDs in database operations (classified as **terminal**).
+- **Conversions**: Out-of-the-box `From` conversions for common external error types:
+  - `serde_json::Error` -> `RustiqError::SerializationError`
+  - `uuid::Error` -> `RustiqError::InvalidPayload`
+- **Recoverability Checks**: Method `is_recoverable()` determines whether processing should retry or fail immediately.
+
+
