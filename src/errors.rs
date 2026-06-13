@@ -56,4 +56,21 @@ mod tests {
             _ => panic!("Expected SerializationError"),
         }
     }
+
+    #[test]
+    fn test_uuid_error_conversion() {
+        let invalid_uuid = "not-a-valid-uuid";
+        let result = uuid::Uuid::try_parse(invalid_uuid);
+        assert!(result.is_err());
+        
+        let err = result.unwrap_err();
+        let rustiq_err: RustiqError = err.into();
+        
+        match rustiq_err {
+            RustiqError::InvalidPayload(msg) => {
+                assert!(msg.contains("Invalid UUID"));
+            }
+            _ => panic!("Expected InvalidPayload"),
+        }
+    }
 }
