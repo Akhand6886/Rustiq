@@ -10,4 +10,6 @@ pub enum RustiqError {
     SerializationError(String),
     #[error("Invalid payload: {0}")]
     InvalidPayload(String),
+    #[error("Job not found: {0}")]
+    JobNotFound(uuid::Uuid),
 }
