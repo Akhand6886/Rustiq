@@ -89,7 +89,7 @@ graph TD
 *   **System Design Context:** Multi-tenant systems require queues to configure separate parameters depending on execution constraints (e.g. fast vs slow tasks).
 *   **Verification:** Write unit tests checking config default fallback values when a queue does not explicitly define overrides.
 
-### Day 6: Error Handling Architecture (`errors.rs`)
+### Day 6: Error Handling Architecture (`errors.rs`) [COMPLETED]
 *   **Focus:** Robust error handling.
 *   **Action Items:** Create `src/errors.rs`. Define a central `RustiqError` enum using `thiserror`. Define enum variants: `StorageError(String)`, `QueueNotFound(String)`, `SerializationError`, `InvalidPayload(String)`.
 *   **System Design Context:** Production software must handle failures gracefully. Distinguishing between recoverable storage errors and unrecoverable payload validation errors is essential.
