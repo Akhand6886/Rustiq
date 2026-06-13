@@ -53,12 +53,13 @@ mod tests {
     #[test]
     fn test_serde_json_error_conversion() {
         let invalid_json = "{ invalid }";
-        let result: Result<serde_json::Value, serde_json::Error> = serde_json::from_str(invalid_json);
+        let result: Result<serde_json::Value, serde_json::Error> =
+            serde_json::from_str(invalid_json);
         assert!(result.is_err());
-        
+
         let err = result.unwrap_err();
         let rustiq_err: RustiqError = err.into();
-        
+
         match rustiq_err {
             RustiqError::SerializationError(msg) => {
                 assert!(msg.contains("key") || msg.contains("expected") || msg.contains("line 1"));
@@ -72,10 +73,10 @@ mod tests {
         let invalid_uuid = "not-a-valid-uuid";
         let result = uuid::Uuid::try_parse(invalid_uuid);
         assert!(result.is_err());
-        
+
         let err = result.unwrap_err();
         let rustiq_err: RustiqError = err.into();
-        
+
         match rustiq_err {
             RustiqError::InvalidPayload(msg) => {
                 assert!(msg.contains("Invalid UUID"));
