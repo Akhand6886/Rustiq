@@ -54,8 +54,14 @@ impl Storage for MockStorage {
             Err(RustiqError::JobNotFound(id))
         }
     }
-    async fn update_job_status(&self, _id: Uuid, _status: JobStatus) -> Result<(), RustiqError> {
-        todo!()
+    async fn update_job_status(&self, id: Uuid, status: JobStatus) -> Result<(), RustiqError> {
+        let mut jobs = self.jobs.write().await;
+        if let Some(job) = jobs.get_mut(&id) {
+            job.status = status;
+            Ok(())
+        } else {
+            Err(RustiqError::JobNotFound(id))
+        }
     }
 }
 
