@@ -69,4 +69,17 @@ The central error handling system in `src/errors.rs` is defined by:
   - `uuid::Error` -> `RustiqError::InvalidPayload`
 - **Recoverability Checks**: Method `is_recoverable()` determines whether processing should retry or fail immediately.
 
+## 💾 Storage Abstractions (Day 7 additions)
+
+The storage abstraction module in `src/storage/mod.rs` defines:
+- **`Storage`**: An asynchronous trait annotated with `#[async_trait]` that outlines database interactions:
+  - `save_job(&self, job: &Job) -> Result<(), RustiqError>`: Insert or update a job.
+  - `get_job(&self, id: Uuid) -> Result<Option<Job>, RustiqError>`: Fetch a job by ID.
+  - `delete_job(&self, id: Uuid) -> Result<(), RustiqError>`: Delete a job by ID.
+  - `update_job_status(&self, id: Uuid, status: JobStatus) -> Result<(), RustiqError>`: Modify job status.
+  - `get_jobs_by_queue(&self, queue: &str) -> Result<Vec<Job>, RustiqError>`: Retrieve all jobs belonging to a queue.
+  - `get_all_jobs(&self) -> Result<Vec<Job>, RustiqError>`: Retrieve all jobs.
+  - `clear_queue(&self, queue: &str) -> Result<(), RustiqError>`: Remove all jobs from a queue.
+- **`MockStorage`**: An in-memory, thread-safe implementation of `Storage` using `Arc<RwLock<HashMap<Uuid, Job>>>` to facilitate unit testing and local development without requiring external database dependencies.
+
 
