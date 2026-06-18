@@ -46,8 +46,13 @@ impl Storage for MockStorage {
         let jobs = self.jobs.read().await;
         Ok(jobs.get(&id).cloned())
     }
-    async fn delete_job(&self, _id: Uuid) -> Result<(), RustiqError> {
-        todo!()
+    async fn delete_job(&self, id: Uuid) -> Result<(), RustiqError> {
+        let mut jobs = self.jobs.write().await;
+        if jobs.remove(&id).is_some() {
+            Ok(())
+        } else {
+            Err(RustiqError::JobNotFound(id))
+        }
     }
     async fn update_job_status(&self, _id: Uuid, _status: JobStatus) -> Result<(), RustiqError> {
         todo!()
