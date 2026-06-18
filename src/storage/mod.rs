@@ -170,7 +170,23 @@ mod tests {
         let jobs_c = storage.get_jobs_by_queue("queue-c").await.unwrap();
         assert!(jobs_c.is_empty());
     }
+
+    #[tokio::test]
+    async fn test_mock_storage_get_all_jobs() {
+        let storage = MockStorage::new();
+        let job1 = Job::new("queue-a", json!({}));
+        let job2 = Job::new("queue-b", json!({}));
+
+        storage.save_job(&job1).await.unwrap();
+        storage.save_job(&job2).await.unwrap();
+
+        let all = storage.get_all_jobs().await.unwrap();
+        assert_eq!(all.len(), 2);
+        assert!(all.iter().any(|j| j.id == job1.id));
+        assert!(all.iter().any(|j| j.id == job2.id));
+    }
 }
+
 
 
 
