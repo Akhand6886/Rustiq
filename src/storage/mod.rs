@@ -191,7 +191,32 @@ mod tests {
         assert!(all.iter().any(|j| j.id == job1.id));
         assert!(all.iter().any(|j| j.id == job2.id));
     }
+
+    #[tokio::test]
+    async fn test_mock_storage_clear_queue() {
+        let storage = MockStorage::new();
+        let job1 = Job::new("queue-a", json!({}));
+        let job2 = Job::new("queue-a", json!({}));
+        let job3 = Job::new("queue-b", json!({}));
+
+        storage.save_job(&job1).await.unwrap();
+        storage.save_job(&job2).await.unwrap();
+        storage.save_job(&job3).await.unwrap();
+
+        // Clear queue-a
+        storage.clear_queue("queue-a").await.unwrap();
+
+        // Verify queue-a is empty
+        let jobs_a = storage.get_jobs_by_queue("queue-a").await.unwrap();
+        assert!(jobs_a.is_empty());
+
+        // Verify queue-b still has job3
+        let jobs_b = storage.get_jobs_by_queue("queue-b").await.unwrap();
+        assert_eq!(jobs_b.len(), 1);
+        assert_eq!(jobs_b[0].id, job3.id);
+    }
 }
+
 
 
 
