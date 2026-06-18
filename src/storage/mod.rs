@@ -35,6 +35,23 @@ impl Default for MockStorage {
     }
 }
 
+#[async_trait]
+impl Storage for MockStorage {
+    async fn save_job(&self, _job: &Job) -> Result<(), RustiqError> {
+        todo!()
+    }
+    async fn get_job(&self, _id: Uuid) -> Result<Option<Job>, RustiqError> {
+        todo!()
+    }
+    async fn delete_job(&self, _id: Uuid) -> Result<(), RustiqError> {
+        todo!()
+    }
+    async fn update_job_status(&self, _id: Uuid, _status: JobStatus) -> Result<(), RustiqError> {
+        todo!()
+    }
+}
+
+
 
 
 
