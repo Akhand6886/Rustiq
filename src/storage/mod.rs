@@ -84,4 +84,28 @@ mod tests {
         assert_eq!(get_after.id, id);
         assert_eq!(get_after.queue, "test-queue");
     }
+
+    #[tokio::test]
+    async fn test_mock_storage_delete() {
+        let storage = MockStorage::new();
+        let job = Job::new("test-queue", json!({}));
+        let id = job.id;
+
+        // Save job
+        storage.save_job(&job).await.unwrap();
+
+        // Delete job and check success
+        storage.delete_job(id).await.unwrap();
+
+        // Try to get deleted job, should be None
+        assert!(storage.get_job(id).await.unwrap().is_none());
+
+        // Try to delete again, should error with JobNotFound
+        let err = storage.delete_job(id).await.unwrap_err();
+        match err {
+            RustiqError::JobNotFound(err_id) => assert_eq!(err_id, id),
+            _ => panic!("Expected JobNotFound error"),
+        }
+    }
 }
+
