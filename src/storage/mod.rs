@@ -78,8 +78,10 @@ impl Storage for MockStorage {
         let jobs = self.jobs.read().await;
         Ok(jobs.values().cloned().collect())
     }
-    async fn clear_queue(&self, _queue: &str) -> Result<(), RustiqError> {
-        todo!()
+    async fn clear_queue(&self, queue: &str) -> Result<(), RustiqError> {
+        let mut jobs = self.jobs.write().await;
+        jobs.retain(|_, job| job.queue != queue);
+        Ok(())
     }
 }#[cfg(test)]
 mod tests {
