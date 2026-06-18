@@ -63,9 +63,8 @@ impl Storage for MockStorage {
             Err(RustiqError::JobNotFound(id))
         }
     }
+}#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
 }
-
-
-
-
-
