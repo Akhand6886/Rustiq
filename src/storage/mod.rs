@@ -141,6 +141,31 @@ mod tests {
             _ => panic!("Expected JobNotFound error"),
         }
     }
+
+    #[tokio::test]
+    async fn test_mock_storage_get_jobs_by_queue() {
+        let storage = MockStorage::new();
+        let job1 = Job::new("queue-a", json!({}));
+        let job2 = Job::new("queue-a", json!({}));
+        let job3 = Job::new("queue-b", json!({}));
+
+        storage.save_job(&job1).await.unwrap();
+        storage.save_job(&job2).await.unwrap();
+        storage.save_job(&job3).await.unwrap();
+
+        let jobs_a = storage.get_jobs_by_queue("queue-a").await.unwrap();
+        assert_eq!(jobs_a.len(), 2);
+        assert!(jobs_a.iter().any(|j| j.id == job1.id));
+        assert!(jobs_a.iter().any(|j| j.id == job2.id));
+
+        let jobs_b = storage.get_jobs_by_queue("queue-b").await.unwrap();
+        assert_eq!(jobs_b.len(), 1);
+        assert_eq!(jobs_b[0].id, job3.id);
+
+        let jobs_c = storage.get_jobs_by_queue("queue-c").await.unwrap();
+        assert!(jobs_c.is_empty());
+    }
 }
+
 
 
