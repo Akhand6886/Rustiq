@@ -15,6 +15,7 @@ pub trait Storage: Send + Sync {
     async fn delete_job(&self, id: Uuid) -> Result<(), RustiqError>;
     async fn update_job_status(&self, id: Uuid, status: JobStatus) -> Result<(), RustiqError>;
     async fn get_jobs_by_queue(&self, queue: &str) -> Result<Vec<Job>, RustiqError>;
+    async fn get_all_jobs(&self) -> Result<Vec<Job>, RustiqError>;
 }
 
 #[derive(Debug, Clone)]
@@ -71,6 +72,9 @@ impl Storage for MockStorage {
             .cloned()
             .collect();
         Ok(filtered)
+    }
+    async fn get_all_jobs(&self) -> Result<Vec<Job>, RustiqError> {
+        todo!()
     }
 }#[cfg(test)]
 mod tests {
