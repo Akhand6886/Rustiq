@@ -95,7 +95,7 @@ graph TD
 *   **System Design Context:** Production software must handle failures gracefully. Distinguishing between recoverable storage errors and unrecoverable payload validation errors is essential.
 *   **Verification:** Write tests converting raw storage or JSON errors into `RustiqError` using the `?` operator.
 
-### Day 7: Storage Trait Abstraction (`storage/mod.rs`)
+### Day 7: Storage Trait Abstraction (`storage/mod.rs`) [COMPLETED]
 *   **Focus:** Decoupling DB adapters from system logic.
 *   **Action Items:** Create directory `src/storage/`. Write `src/storage/mod.rs`. Define the async `Storage` trait using `#[async_trait]`:
     ```rust
@@ -110,7 +110,7 @@ graph TD
 *   **System Design Context:** Interfaces (traits in Rust) allow switching the persistence layer (e.g., Sled to Redis or Postgres) without rewriting the core queue coordinator.
 *   **Verification:** Compile the codebase with the `Storage` trait definition.
 
-### Day 8: In-Memory Storage Mock
+### Day 8: In-Memory Storage Mock [COMPLETED]
 *   **Focus:** Testing without disk dependencies.
 *   **Action Items:** Implement `MockStorage` in `src/storage/mod.rs` using a `HashMap<Uuid, Job>` wrapped inside a thread-safe lock `std::sync::Arc<tokio::sync::RwLock>`.
 *   **System Design Context:** Using mock abstractions speeds up testing cycles and enables isolating networking/disk concerns.
