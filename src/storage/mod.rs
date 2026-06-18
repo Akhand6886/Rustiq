@@ -67,4 +67,21 @@ impl Storage for MockStorage {
 mod tests {
     use super::*;
     use serde_json::json;
+
+    #[tokio::test]
+    async fn test_mock_storage_save_and_get() {
+        let storage = MockStorage::new();
+        let job = Job::new("test-queue", json!({"payload": 123}));
+        let id = job.id;
+
+        // Verify get returns None initially
+        let get_init = storage.get_job(id).await.unwrap();
+        assert!(get_init.is_none());
+
+        // Save and verify get returns job
+        storage.save_job(&job).await.unwrap();
+        let get_after = storage.get_job(id).await.unwrap().unwrap();
+        assert_eq!(get_after.id, id);
+        assert_eq!(get_after.queue, "test-queue");
+    }
 }
