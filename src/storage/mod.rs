@@ -107,5 +107,31 @@ mod tests {
             _ => panic!("Expected JobNotFound error"),
         }
     }
+
+    #[tokio::test]
+    async fn test_mock_storage_update_status() {
+        let storage = MockStorage::new();
+        let job = Job::new("test-queue", json!({}));
+        let id = job.id;
+
+        // Save job
+        storage.save_job(&job).await.unwrap();
+
+        // Update status to Processing
+        storage.update_job_status(id, JobStatus::Processing).await.unwrap();
+
+        // Verify status was updated
+        let updated_job = storage.get_job(id).await.unwrap().unwrap();
+        assert_eq!(updated_job.status, JobStatus::Processing);
+
+        // Update status to non-existent job, should error
+        let random_id = Uuid::new_v4();
+        let err = storage.update_job_status(random_id, JobStatus::Done).await.unwrap_err();
+        match err {
+            RustiqError::JobNotFound(err_id) => assert_eq!(err_id, random_id),
+            _ => panic!("Expected JobNotFound error"),
+        }
+    }
 }
+
 
