@@ -21,5 +21,20 @@ pub struct MockStorage {
     jobs: Arc<RwLock<HashMap<Uuid, Job>>>,
 }
 
+impl MockStorage {
+    pub fn new() -> Self {
+        Self {
+            jobs: Arc::new(RwLock::new(HashMap::new())),
+        }
+    }
+}
+
+impl Default for MockStorage {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+
 
 
