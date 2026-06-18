@@ -68,7 +68,8 @@ impl Storage for MockStorage {
     }
     async fn get_jobs_by_queue(&self, queue: &str) -> Result<Vec<Job>, RustiqError> {
         let jobs = self.jobs.read().await;
-        let filtered = jobs.values()
+        let filtered = jobs
+            .values()
             .filter(|job| job.queue == queue)
             .cloned()
             .collect();
@@ -83,7 +84,8 @@ impl Storage for MockStorage {
         jobs.retain(|_, job| job.queue != queue);
         Ok(())
     }
-}#[cfg(test)]
+}
+#[cfg(test)]
 mod tests {
     use super::*;
     use serde_json::json;
@@ -138,7 +140,10 @@ mod tests {
         storage.save_job(&job).await.unwrap();
 
         // Update status to Processing
-        storage.update_job_status(id, JobStatus::Processing).await.unwrap();
+        storage
+            .update_job_status(id, JobStatus::Processing)
+            .await
+            .unwrap();
 
         // Verify status was updated
         let updated_job = storage.get_job(id).await.unwrap().unwrap();
@@ -146,7 +151,10 @@ mod tests {
 
         // Update status to non-existent job, should error
         let random_id = Uuid::new_v4();
-        let err = storage.update_job_status(random_id, JobStatus::Done).await.unwrap_err();
+        let err = storage
+            .update_job_status(random_id, JobStatus::Done)
+            .await
+            .unwrap_err();
         match err {
             RustiqError::JobNotFound(err_id) => assert_eq!(err_id, random_id),
             _ => panic!("Expected JobNotFound error"),
@@ -216,8 +224,3 @@ mod tests {
         assert_eq!(jobs_b[0].id, job3.id);
     }
 }
-
-
-
-
-
