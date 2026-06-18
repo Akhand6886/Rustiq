@@ -64,8 +64,13 @@ impl Storage for MockStorage {
             Err(RustiqError::JobNotFound(id))
         }
     }
-    async fn get_jobs_by_queue(&self, _queue: &str) -> Result<Vec<Job>, RustiqError> {
-        todo!()
+    async fn get_jobs_by_queue(&self, queue: &str) -> Result<Vec<Job>, RustiqError> {
+        let jobs = self.jobs.read().await;
+        let filtered = jobs.values()
+            .filter(|job| job.queue == queue)
+            .cloned()
+            .collect();
+        Ok(filtered)
     }
 }#[cfg(test)]
 mod tests {
