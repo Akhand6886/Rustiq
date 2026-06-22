@@ -48,7 +48,9 @@ impl Storage for MockStorage {
         jobs.insert(job.id, job.clone());
         Ok(())
     }
+    #[instrument(skip(self))]
     async fn get_job(&self, id: Uuid) -> Result<Option<Job>, RustiqError> {
+        debug!("Retrieving job: {}", id);
         let jobs = self.jobs.read().await;
         Ok(jobs.get(&id).cloned())
     }
