@@ -1,5 +1,6 @@
 pub mod api;
 pub mod errors;
+pub mod logging;
 pub mod storage;
 pub mod types;
 pub mod worker;
