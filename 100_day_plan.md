@@ -116,7 +116,7 @@ graph TD
 *   **System Design Context:** Using mock abstractions speeds up testing cycles and enables isolating networking/disk concerns.
 *   **Verification:** Write unit tests to insert, retrieve, and delete a job via the mock storage.
 
-### Day 9: Logging Infrastructure Setup
+### Day 9: Logging Infrastructure Setup [COMPLETED]
 *   **Focus:** System observability setup.
 *   **Action Items:** Configure structured logging in `src/main.rs` using `tracing_subscriber` with JSON output formatting. Support setting log filters using environment variables (e.g. `RUST_LOG=info`).
 *   **System Design Context:** Structured logging (JSON format) allows external tools like ElasticSearch, Splunk, or Loki to parse logs for system failures.

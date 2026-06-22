@@ -82,4 +82,10 @@ The storage abstraction module in `src/storage/mod.rs` defines:
   - `clear_queue(&self, queue: &str) -> Result<(), RustiqError>`: Remove all jobs from a queue.
 - **`MockStorage`**: An in-memory, thread-safe implementation of `Storage` using `Arc<RwLock<HashMap<Uuid, Job>>>` to facilitate unit testing and local development without requiring external database dependencies.
 
+## 📝 Logging Infrastructure (Day 9 additions)
 
+The central logging infrastructure in `src/logging.rs` provides:
+- **`init_logging`**: A global initialization method using `tracing_subscriber` configured with:
+  - JSON formatting for external observability tools.
+  - Environment filters (`RUST_LOG`) for runtime log level control.
+- **Instrumentation**: The `Storage` trait implementations, like `MockStorage`, are annotated with `#[instrument]` and internal `debug!` macros to trace persistence operations.

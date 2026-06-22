@@ -48,3 +48,8 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 - Implemented the thread-safe, in-memory `MockStorage` using `Arc<RwLock<HashMap<Uuid, Job>>>`
 - Covered database operations, updates, and filtering behaviors via a comprehensive unit test suite in [storage/mod.rs](../src/storage/mod.rs)
 - Documented storage abstraction architectures and implementation layers in [workspace.md](workspace.md)
+
+## Day 9 Checklist Complete
+- Migrated tracing and `tracing_subscriber` logic into a central, dedicated [logging.rs](../src/logging.rs) module
+- Instrumented the `Storage` trait implementations with `#[instrument]` macros and detailed `debug!` hooks to observe internal queries
+- Updated system design indexing via [workspace.md](workspace.md) and [README.md](README.md)
