@@ -41,7 +41,9 @@ impl Default for MockStorage {
 
 #[async_trait]
 impl Storage for MockStorage {
+    #[instrument(skip(self))]
     async fn save_job(&self, job: &Job) -> Result<(), RustiqError> {
+        debug!("Saving job: {}", job.id);
         let mut jobs = self.jobs.write().await;
         jobs.insert(job.id, job.clone());
         Ok(())
