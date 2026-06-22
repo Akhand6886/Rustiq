@@ -54,7 +54,9 @@ impl Storage for MockStorage {
         let jobs = self.jobs.read().await;
         Ok(jobs.get(&id).cloned())
     }
+    #[instrument(skip(self))]
     async fn delete_job(&self, id: Uuid) -> Result<(), RustiqError> {
+        debug!("Deleting job: {}", id);
         let mut jobs = self.jobs.write().await;
         if jobs.remove(&id).is_some() {
             Ok(())
