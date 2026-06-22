@@ -12,4 +12,10 @@ pub fn init_logging() {
 mod tests {
     use super::*;
 
+    #[test]
+    fn test_init_logging() {
+        // Should not panic even if called multiple times in tests
+        init_logging();
+        init_logging();
+    }
 }
