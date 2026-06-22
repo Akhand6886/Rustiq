@@ -86,7 +86,9 @@ impl Storage for MockStorage {
             .collect();
         Ok(filtered)
     }
+    #[instrument(skip(self))]
     async fn get_all_jobs(&self) -> Result<Vec<Job>, RustiqError> {
+        debug!("Retrieving all jobs");
         let jobs = self.jobs.read().await;
         Ok(jobs.values().cloned().collect())
     }
