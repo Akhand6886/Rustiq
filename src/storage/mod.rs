@@ -75,7 +75,9 @@ impl Storage for MockStorage {
             Err(RustiqError::JobNotFound(id))
         }
     }
+    #[instrument(skip(self))]
     async fn get_jobs_by_queue(&self, queue: &str) -> Result<Vec<Job>, RustiqError> {
+        debug!("Retrieving jobs for queue: {}", queue);
         let jobs = self.jobs.read().await;
         let filtered = jobs
             .values()
