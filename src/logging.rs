@@ -7,3 +7,9 @@ pub fn init_logging() {
         .with(EnvFilter::from_default_env())
         .try_init();
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+}
