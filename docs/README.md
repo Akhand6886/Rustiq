@@ -49,7 +49,9 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 - Covered database operations, updates, and filtering behaviors via a comprehensive unit test suite in [storage/mod.rs](../src/storage/mod.rs)
 - Documented storage abstraction architectures and implementation layers in [workspace.md](workspace.md)
 
-## Day 9 Checklist Complete
+## Day 9 & 10 Checklist Complete
 - Migrated tracing and `tracing_subscriber` logic into a central, dedicated [logging.rs](../src/logging.rs) module
 - Instrumented the `Storage` trait implementations with `#[instrument]` macros and detailed `debug!` hooks to observe internal queries
+- Validated application formatting comprehensively via `cargo fmt`
+- Resolved codebase lint warnings raised by `cargo clippy`
 - Updated system design indexing via [workspace.md](workspace.md) and [README.md](README.md)
