@@ -5,6 +5,7 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 ## Documents
 - [Architecture Blueprint](architecture.md)
 - [System Design Interview Prep](system_design_interview_prep.md)
+- [Sled Storage Architecture](sled_architecture.md)
 
 ## Learning Resources
 - *Designing Data-Intensive Applications* by Martin Kleppmann (Chapters 7, 8, 11)
@@ -55,3 +56,8 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 - Validated application formatting comprehensively via `cargo fmt`
 - Resolved codebase lint warnings raised by `cargo clippy`
 - Updated system design indexing via [workspace.md](workspace.md) and [README.md](README.md)
+
+## Day 11 Checklist Complete
+- Studied `sled` mechanics (B-tree structure, key spaces, MVCC, write-ahead logs)
+- Outlined key-value mapping strategies (e.g. `job:<uuid>`)
+- Documented Sled's advantages and architectures in [sled_architecture.md](sled_architecture.md)

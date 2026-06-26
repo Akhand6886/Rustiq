@@ -132,7 +132,7 @@ graph TD
 ## Phase 2: Persistent Storage Layer (Days 11–22)
 **Goal:** Implement a durable storage backend using `Sled` (a pure-Rust, embedded transactional database) with proper state guarantees.
 
-### Day 11: Sled Mechanics & API Study
+### Day 11: Sled Mechanics & API Study [COMPLETED]
 *   **Focus:** Understanding embedded transactional storage.
 *   **Action Items:** Study `sled` docs. Understand its B-tree structure, key spaces, multi-version concurrency control (MVCC), and batch write operations.
 *   **System Design Context:** Why use an embedded database like Sled instead of PostgreSQL? No network hop, lower latency, simple deployment, and ACID transaction support.
