@@ -5,6 +5,8 @@ use uuid::Uuid;
 use crate::errors::RustiqError;
 use crate::types::{Job, JobStatus};
 
+pub mod sled;
+
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::RwLock;
