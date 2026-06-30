@@ -57,7 +57,9 @@ Welcome to the Rustiq project documentation. This folder contains detailed docum
 - Resolved codebase lint warnings raised by `cargo clippy`
 - Updated system design indexing via [workspace.md](workspace.md) and [README.md](README.md)
 
-## Day 11 Checklist Complete
+## Day 11 & 12 Checklist Complete
 - Studied `sled` mechanics (B-tree structure, key spaces, MVCC, write-ahead logs)
 - Outlined key-value mapping strategies (e.g. `job:<uuid>`)
 - Documented Sled's advantages and architectures in [sled_architecture.md](sled_architecture.md)
+- Set up `SledStorage` struct wrapping `sled::Db`
+- Covered basic Sled initialization via unit tests
