@@ -36,6 +36,12 @@ impl From<uuid::Error> for RustiqError {
     }
 }
 
+impl From<sled::Error> for RustiqError {
+    fn from(err: sled::Error) -> Self {
+        Self::StorageError(err.to_string())
+    }
+}
+
 impl RustiqError {
     /// Returns true if the error is transient and processing should be retried.
     pub fn is_recoverable(&self) -> bool {
